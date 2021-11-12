@@ -1,0 +1,329 @@
+* {
+  font-family: "Rubik", sans-serif;
+}
+
+.gif {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.vijest {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+  border-bottom-right-radius: 15px;
+  background: #e4e4e4;
+  height: 103px;
+  box-shadow: 5px 5px 5px #b7b7b7;
+  color: black;
+  position: relative;
+}
+
+.info {
+  font-size: 12px;
+  color: #ffffff;
+  font-family: "Rubik", sans-serif;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 2px 13px 2px 16px;
+  border-top-left-radius: 22px;
+  background-color: black;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:-webkit-any-link {
+  color: white;
+  cursor: pointer;
+}
+
+.header {
+  height: 58px;
+  text-align: center;
+}
+
+footer {
+  background-color: black;
+  color: silver;
+  width: 100%;
+  height: 20px;
+  text-align: center;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+footer ul {
+  margin: 0;
+  padding: 0;
+}
+
+footer .cr {
+  position: absolute;
+  right: 40px;
+}
+
+footer .flijevi {
+  margin-right: 20px;
+}
+
+footer ul li {
+  display: inline;
+  margin: 0 5px 0 5px;
+  padding: 0;
+}
+
+.header > img {
+  height: 100%;
+  padding: 5px;
+  vertical-align: middle;
+}
+
+.slika {
+  width: 30%;
+}
+
+.slika > img {
+  width: 100%;
+  height: 83px;
+  object-fit: cover;
+  object-position: top;
+  border-bottom-right-radius: 14px;
+  vertical-align: middle;
+}
+
+.naslov {
+  width: 70%;
+  margin-left: 10px;
+}
+
+p {
+  margin: 0;
+  font-size: 24px;
+  border-radius: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 896;
+}
+
+.vijest > .slika > .infoPrvaV {
+  display: none;
+}
+
+.displayNone {
+  display: none;
+}
+
+.footerMob {
+  background-color: black;
+  color: rgb(95, 95, 95);
+  font-family: "Rubik", sans-serif;
+  text-align: center;
+  padding: 20px 5px 20px 5px;
+}
+
+.footerMob p {
+  font-size: 10px;
+  text-align: center;
+}
+
+.footerMob img {
+  height: 12px;
+  margin: 5px;
+}
+
+.btnJosVijesti {
+  margin: auto;
+  display: block;
+  width: 60%;
+  height: 44px;
+  background-color: black;
+  border: 0;
+  color: white;
+}
+
+@media only screen and (max-width: 768px) {
+  /* mobilni */
+
+  #root {
+    margin-top: 68px;
+  }
+
+  .headerMain {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: black;
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+    width: 100%;
+    color: white;
+    height: 60px;
+    overflow-x: scroll;
+    /* background-color: firebrick; */
+  }
+
+  .headerMain::-webkit-scrollbar {
+    display: none;
+  }
+
+  .headerMain p {
+    margin: 0px 5px 0px 5px;
+    line-height: 60px;
+    padding: 0 7px 0 7px;
+  }
+
+  .headerMain .pzadnji {
+    margin-right: 15px;
+  }
+
+  .samoDesktop {
+    display: none;
+  }
+
+  .portal {
+    width: 100%;
+  }
+
+  p {
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .vijest {
+    position: relative;
+  }
+
+  .sveVijesti {
+    padding: 5px;
+    margin-bottom: 30px;
+  }
+
+  .sveVijesti > .header > p {
+    line-height: 58px;
+    font-size: 25px;
+  }
+
+  .sveVijesti .info {
+    color: #dadada;
+  }
+
+  .prvaVijest {
+    display: block;
+    padding: 0;
+    margin: 10px;
+    color: black;
+  }
+
+  .prvaVijest > .slika {
+    width: 100%;
+    height: 270px;
+    position: relative;
+    overflow: hidden;
+    border-top-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+    border-top-right-radius: 0;
+  }
+
+  .prvaVijest > .slika > .infoPrvaV {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background-color: #00000073;
+    font-size: 12px;
+    color: #b7b7b7;
+    font-family: "Rubik", sans-serif;
+    padding: 2px 13px 2px 16px;
+    border-top-left-radius: 22px;
+  }
+
+  .prvaVijest > .naslov {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .prvaVijest > .naslov p {
+    font-size: 22px;
+  }
+
+  .prvaVijest > .slika > img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    object-position: top;
+    vertical-align: middle;
+    border-top-right-radius: 0px;
+  }
+
+  .info {
+    font-size: 10px;
+    font-family: "Roboto";
+  }
+
+  .info > img {
+    width: 12px;
+    vertical-align: middle;
+  }
+
+  .drugaTrecaVijest {
+    width: 47%;
+    display: inline-block;
+    height: 264px;
+    margin: 5px;
+  }
+
+  .drugaTrecaVijest > .slika {
+    width: 100%;
+  }
+
+  .drugaTrecaVijest > .slika > img {
+    height: 140px;
+  }
+
+  .drugaTrecaVijest > .naslov {
+    width: 100%;
+    margin: 14px 0px 0px 0px;
+  }
+
+  .drugaTrecaVijest p {
+    -webkit-line-clamp: 4;
+  }
+
+  #prikaziJosBtn {
+    text-align: center;
+  }
+
+  .prikaziJosBtn {
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  /* desktop */
+  .samoMob {
+    display: none;
+  }
+
+  .info {
+    background-color: #cfcfcf;
+    color: black;
+  }
+
+  p {
+    text-transform: uppercase;
+  }
+}

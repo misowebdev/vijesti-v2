@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  background-color: rgb(207, 207, 207);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.sve {
+  height: 99vh;
+}
+
+.svi-portali {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.prviRed {
+  margin-top: 5px;
+}
+
+.portal {
+  width: 33.3%;
+  text-align: left;
+  padding: 5px;
+}
+
+.footer {
+  margin-top: -10px;
+  font-size: 12px;
+  text-align: center;
+  color: #5a5a5a;
+}
