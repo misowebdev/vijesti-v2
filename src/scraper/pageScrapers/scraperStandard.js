@@ -1,38 +1,45 @@
 const scraperStandard = async (page) => {
-  let data = await page.evaluate(() => {
-    let vijesti = [];
-
-    const dataSve = document.querySelector(
-      "body > div:nth-child(6) > div:nth-child(2) > div > div > div > div:nth-child(3) > div > div:nth-child(2)  > div:nth-child(2)"
-    );
-
-    const naslovi = dataSve.querySelectorAll(".td-module-thumb a");
-    const linkovi = dataSve.querySelectorAll(".td-module-thumb a");
-    const slike = dataSve.querySelectorAll(".td-module-thumb a span");
-
-    for (let i = 0; i < naslovi.length; i++) {
-      const slikaLink = slike[i].style.backgroundImage.slice(
-        5,
-        slike[i].style.backgroundImage.length - 2
+  try {
+    let data = await page.evaluate(() => {
+      const prvih10 = document.querySelector(
+        "body > div:nth-child(6) > div:nth-child(2) > div > div > div > div:nth-child(4) > div > div > div"
       );
 
-      const copy = vijesti.filter((el) => el.naslov === naslovi[i].title);
+      const politika = document.querySelector(
+        "body > div:nth-child(6) > div:nth-child(2) > div > div > div > div:nth-child(6) > div > div > div > div > div:nth-child(5)"
+      );
 
-      if (copy.length === 0) {
-        vijesti = [
-          ...vijesti,
-          {
-            title: naslovi[i].title,
-            image: slikaLink,
-            link: linkovi[i].href,
-            website: "Standard",
-          },
-        ];
-      }
-    }
-    return vijesti;
-  });
-  return data;
+      const sve = [prvih10, politika];
+
+      const sveVijesti = [];
+      sve.forEach((sekcija) => {
+        const tekstoviArr = sekcija.querySelectorAll(".td-module-container");
+
+        tekstoviArr.forEach((tekstDiv) => {
+          const title = tekstDiv.querySelector("h3 > a").title;
+          const image = tekstDiv
+            .querySelector(".td-module-thumb > a > span")
+            .style.backgroundImage.slice(5, -2);
+          const link = tekstDiv.querySelector("h3 > a").href;
+          const website = "Standard";
+
+          sveVijesti.push({ title, image, website, link });
+        });
+      });
+
+      const unique = sveVijesti.filter((v, index, array) => {
+        if (array.findIndex((el) => el.title === v.title) === index) {
+          return v;
+        }
+      });
+
+      return unique;
+    });
+    return data;
+  } catch (err) {
+    console.log("STANDARD - Greska u citanju  ---------------------");
+    return null;
+  }
 };
 
 export default scraperStandard;

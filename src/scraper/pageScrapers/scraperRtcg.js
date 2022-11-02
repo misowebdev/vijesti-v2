@@ -1,43 +1,45 @@
 const scraperRtcg2 = async (page) => {
-  let data = await page.evaluate(() => {
-    let vijesti = [];
+  try {
+    let data = await page.evaluate(() => {
+      let vijesti = [];
 
-    // slider i 2 pored
-    const dataGlavne = document.querySelector(".leftHome");
+      // slider i 2 pored
+      const dataGlavne = document.querySelector(".leftHome");
 
-    // ispod slidera 2 x po 5 vijesti
-    const dataVijesti = document.querySelector(".new-block-slider-wrapper");
+      // ispod slidera 11 vijesti
+      const dataVijesti = document.querySelector(
+        "#content > div > div.storyMainBox.fix.latestStories-11.new-block4.stories-11"
+      );
 
-    const dataSve = [dataGlavne, dataVijesti];
+      const sve = [dataGlavne, dataVijesti];
 
-    dataSve.forEach((data) => {
-      const naslovi = data.querySelectorAll(".slide_title, .title");
-      const slike = data.querySelectorAll("img");
-      const linkovi = data.querySelectorAll("a");
+      const sveVijesti = [];
+      sve.forEach((sekcija) => {
+        const tekstoviArr = sekcija.querySelectorAll(".item");
 
-      for (let i = 0; i < naslovi.length; i++) {
-        const naslov = naslovi[i].innerText;
-        const slika = slike[i].src;
-        const link = linkovi[i].href;
+        tekstoviArr.forEach((tekstDiv) => {
+          const title = tekstDiv.querySelector("p").innerText;
+          const image = tekstDiv.querySelector("img").src;
+          const link = tekstDiv.querySelector("a").href;
+          const website = "Rtcg";
 
-        const vijest = {
-          title: naslov,
-          image: slika,
-          link,
-          website: "Rtcg",
-        };
+          sveVijesti.push({ title, image, website, link });
+        });
+      });
 
-        const isDuplicate = vijesti.some((v) => v.title === vijest.title);
-
-        if (!isDuplicate) {
-          vijesti.push(vijest);
+      const unique = sveVijesti.filter((v, index, array) => {
+        if (array.findIndex((el) => el.title === v.title) === index) {
+          return v;
         }
-      }
-    });
+      });
 
-    return vijesti;
-  });
-  return data;
+      return unique;
+    });
+    return data;
+  } catch (err) {
+    console.log("RTCG - Greska u citanju  ---------------------");
+    return null;
+  }
 };
 
 export default scraperRtcg2;

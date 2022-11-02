@@ -56,7 +56,10 @@ const startPuppeteer = async () => {
           timeout: 30000,
         });
         const news = await webPage.scra(page);
-        await News.insertMany(news, { ordered: false });
+        if (news) {
+          console.log(webPage.name, "- Uspjesno");
+          await News.insertMany(news, { ordered: false });
+        }
       } catch (error) {
         if (error.code !== 11000) {
           return console.log(webPage.name, error);
