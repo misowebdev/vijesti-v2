@@ -28,18 +28,22 @@ const webPages = [
 const userAgent =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36";
 
-const startPuppeteer = async () => {
-  const browser = await puppeteer.launch({
+let browser = null;
+let page = null;
+let counter = 0;
+
+const lunchBrowser = async () => {
+  browser = await puppeteer.launch({
     args: ["--single-process", "--no-zygote", "--no-sandbox"],
     timeout: 0,
     ignoreHTTPSErrors: true,
     // headless: false,
   });
 
-  const page = await browser.newPage();
+  page = await browser.newPage();
 
   await page.setViewport({
-    width: 1200,
+    width: 1920,
     height: 1080,
     isMobile: false,
     isLandscape: false,
@@ -47,6 +51,10 @@ const startPuppeteer = async () => {
   });
 
   await page.setUserAgent(userAgent);
+};
+
+const startPuppeteer = async () => {
+  await lunchBrowser();
 
   const scrapPages = async () => {
     for (const webPage of webPages) {
@@ -57,18 +65,25 @@ const startPuppeteer = async () => {
         });
         const news = await webPage.scra(page);
         if (news) {
-          console.log(webPage.name, "- Uspjesno");
+          //    console.log(webPage.name, "- Uspjesno");
           await News.insertMany(news, { ordered: false });
         }
       } catch (error) {
         if (error.code !== 11000) {
-          return console.log(webPage.name, error);
+          console.log(webPage.name, error);
         }
         const { insertedDocs } = error;
-        if (insertedDocs.length) {
+        if (insertedDocs?.length) {
           io.emit("new news", webPage.name);
         }
       }
+    }
+    counter += 1;
+    // restart browser after 5 scrapes
+    if (counter === 5) {
+      counter = 0;
+      await browser.close();
+      await lunchBrowser();
     }
   };
 
@@ -76,7 +91,7 @@ const startPuppeteer = async () => {
     await scrapPages();
     await autoScraper();
   };
-  await autoScraper(page);
+  await autoScraper();
 };
 
 export default startPuppeteer;

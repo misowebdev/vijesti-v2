@@ -11,6 +11,7 @@ const httpServer = createServer(app);
 const options = { cors: { origin: config.CLIENT_URL } };
 export const io = new Server(httpServer, options);
 
+
 mongoose
   .connect(config.MONGO_URI)
   .then(() => console.log("connected to MongoDB"))
