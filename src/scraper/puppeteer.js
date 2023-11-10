@@ -37,7 +37,7 @@ const lunchBrowser = async () => {
     args: ["--single-process", "--no-zygote", "--no-sandbox"],
     timeout: 0,
     ignoreHTTPSErrors: true,
-    // headless: false,
+    //   headless: false,
   });
 
   page = await browser.newPage();
@@ -51,6 +51,20 @@ const lunchBrowser = async () => {
   });
 
   await page.setUserAgent(userAgent);
+
+  // do not load images, fonts and stylesheets
+  await page.setRequestInterception(true);
+  page.on("request", (req) => {
+    if (
+      req.resourceType() == "stylesheet" ||
+      req.resourceType() == "font" ||
+      req.resourceType() == "image"
+    ) {
+      req.abort();
+    } else {
+      req.continue();
+    }
+  });
 };
 
 const startPuppeteer = async () => {
@@ -65,7 +79,7 @@ const startPuppeteer = async () => {
         });
         const news = await webPage.scra(page);
         if (news) {
-          //    console.log(webPage.name, "- Uspjesno");
+          //  console.log(webPage.name, "- Uspjesno");
           await News.insertMany(news, { ordered: false });
         }
       } catch (error) {
